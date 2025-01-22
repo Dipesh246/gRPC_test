@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+service TestService {
+    //Send test information
+    rpc RunTest(TestRequest) returns (TestResponse);
+    // Retrive the result file
+    rpc GetResultFile (FIleRequest) returns (FileResponse);
+    //Bi-directional streaming for complex scenerios
+    rpc ProcessTest (stream TestRequest) returns (stream TestResponse);
+}
+
+message TestRequest {
+    string test_name = 1;
+    string parameters= 2;
+}
+
+message TestResponse {
+    string result = 1;
+    string status = 2;
+}
+
+message FIleRequest {
+    string test_name = 1;
+}
+
+message FileResponse {
+    bytes file_data = 1;
+    string file_name = 2;
+    string status = 3;
+}
